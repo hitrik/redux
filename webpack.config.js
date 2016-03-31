@@ -1,6 +1,6 @@
-var path = require('path')
-var webpack = require('webpack')
-var NpmInstallPlugin = require('npm-install-webpack-plugin')
+var path = require('path');
+var webpack = require('webpack');
+var NpmInstallPlugin = require('npm-install-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -9,10 +9,10 @@ module.exports = {
     'babel-polyfill',
     './index'
   ],
+  watch: true,
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/static/'
+    filename: 'bundle.js'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -20,24 +20,16 @@ module.exports = {
     new NpmInstallPlugin()
   ],
   module: {
-    preLoaders: [
-      {
-        test: /\.js$/,
-        loaders: ['eslint'],
-        include: [
-          path.resolve(__dirname, "src"),
-        ],
-      }
-    ],
+
     loaders: [
       {
-        loaders: ['react-hot', 'babel-loader'],
-        include: [
-          path.resolve(__dirname, "src"),
-        ],
-        test: /\.js$/,
+        loader: ['babel-loader'],
+        test: /\.jsx?$/,
         plugins: ['transform-runtime'],
+        query: {
+          presets: ['react', 'es2015']
+        }
       }
     ]
   }
-}
+};
