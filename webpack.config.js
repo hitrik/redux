@@ -5,8 +5,6 @@ var NpmInstallPlugin = require('npm-install-webpack-plugin');
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    'webpack-hot-middleware/client',
-    'babel-polyfill',
     './index'
   ],
   watch: true,
@@ -27,7 +25,7 @@ module.exports = {
         test: /\.jsx?$/,
         plugins: ['transform-runtime'],
         query: {
-          presets: ['react', 'es2015']
+          presets: ['react', 'es2015', 'stage-0']
         }
       }
     ]

@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import Page from './components/Page';
+import User from './components/User';
+import * as pageActions from './actions/PageAction';
 
 export default class App extends Component {
   render() {
-    const user = this.props.user;
-    const {year, photos} = this.props.page;
+    const {user, page} = this.props;
+    const {setYear} = this.props.pageActions;
     return <div>
-      <p>Привет из App, {user}.</p>
-      <p>You have {photos.length} for {year} year.</p>
+      <User name = {user.name} />
+      <Page photos = {page.photos} year = {page.year} setYear = {setYear}/>
     </div>
   }
 }
@@ -19,4 +23,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(App);
+function mapDispatchToProps(dispatch) {
+  return {
+    pageActions: bindActionCreators(pageActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
